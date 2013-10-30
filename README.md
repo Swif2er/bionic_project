@@ -1,11 +1,11 @@
-BeatMaker
-==============
+BeatMaker by Alexandr Goltsman
+==============================
 
 Its gonna be a web application that make it possible to create a beat loops from the samples(sound clips). 
-It will have a grid where user will be able to set clips(the dimension will be = 'number of samples' * 'number of cells(%4 = 0)')
+It will have a grid where user will be able to set position for clip to play(the dimension will be = 'number of samples' * 'number of cells(%4 = 0)')
 
 The initial(1.0) version should contain:
-- some basic samples(3-4);
+- 3-4 rows for basic samples(included);
 - grid(3-4 rows * 16 cells) for making the loop;
 - play/stop button;
 
@@ -19,6 +19,3 @@ Furter improvements:
 - add registration and authentification for users;
 - add possibility to save the last working condition (preset) for every user and restore it when he login again;
 - add reset to default button;
-
-
-Alexandr Goltsman
