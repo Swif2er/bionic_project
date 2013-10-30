@@ -9,7 +9,7 @@ The initial(1.0) version should contain:
 - grid(3-4 rows * 16 cells) for making the loop;
 - play/stop button;
 
-Furter improvements:
+Further improvements:
 - make it possible to change numder of rows(samples) (add; delete);
   make it possible to upload other(.wav) then basic samples;
 - possibility to save the loop to a audio file(.wav);
