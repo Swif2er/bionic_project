@@ -2,7 +2,7 @@ BeatMaker
 ==============
 
 Its gonna be a web application that make it possible to create a beat loops from the samples(sound clips). 
-It will have a sequencer where user will be able to set clips(the dimension will be = 'number of samples' * 'number of cells(%4 = 0)')
+It will have a grid where user will be able to set clips(the dimension will be = 'number of samples' * 'number of cells(%4 = 0)')
 
 The initial(1.0) version should contain:
 - some basic samples(3-4);
