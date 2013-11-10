@@ -1,0 +1,2 @@
+serviceClass: edu.bionic.client.GreetingService
+path: 3453752B7595217DD83ECA5C874F2464.gwt.rpc
