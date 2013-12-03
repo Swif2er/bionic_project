@@ -1,34 +1,187 @@
-/** Add css rules here for your application. */
-
-
-/** Example rules used by the template application (remove for your app) */
-h1 {
-  font-size: 2em;
-  font-weight: bold;
-  color: #777777;
-  margin: 40px 0px 70px;
-  text-align: center;
+@font-face
+{
+font-family: BTN;
+src: url('fonts/BTNSWTCH.TTF');
+}
+@font-face
+{
+font-family: Amble;
+src: url('fonts/amble/Amble-Regular.ttf')
 }
 
-.sendButton {
-  display: block;
-  font-size: 16pt;
+.body {
+	background-color: #ddd;
 }
 
-/** Most GWT widgets already have a style name defined */
-.gwt-DialogBox {
-  width: 400px;
+.center {
+	margin: 0 auto;
+	width: 480px;
+}
+.button {
+	font-family: Amble !important;
+	font-size: 14px;
+	letter-spacing: 1px;
+	/*font-weight: bold !important;*/
+	color: #777;
+	text-shadow: 0px 1px 0px #fff;
+	cursor: pointer;
+	-moz-box-shadow: inset 0px 1px 0px 0px #fff;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #fff;
+	box-shadow: inset 0px 1px 0px 0px #fff;
+	background: #ededed;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border: 1px solid #bbb;
 }
 
-.dialogVPanel {
-  margin: 5px;
+.addTrackButton {
+	text-align: center;
+	margin-right: 1em;
+	width: 120px;
+	height: 29px;
+	
 }
 
-.serverResponseLabelError {
-  color: red;
+.button:hover {
+	border: 1px solid #a2a2a2;
+	background: #C8D6E8;
 }
 
-/** Set ids using widget.getElement().setId("idOfElement") */
-#closeButton {
-  margin: 15px 6px 6px;
+.uploadButton {
+	height: 22px !important; 
+	text-align: center;
+	padding-top: 5px; 
+	margin-right: 1em;
+	/*-moz-box-shadow: inset 0px 0px 0px 1px #fff;
+	-webkit-box-shadow: inset 0px 0px 0px 1px #fff;
+	box-shadow: inset 0px 0px 0px 1px #fff;
+	background: #f4f4f4;
+	
+	color: #666;
+	font-family: TEST !important;
+	font-size: 11px;
+	letter-spacing: 1px;
+	text-shadow: 0px 1px 0px #fff;
+	font-weight: bold !important;*/
 }
+
+/*.uploadButton:hover {	
+	border: 1px solid #999;
+	background: #f8f8f8;
+}*/
+
+.uploadButton:active {
+	position: relative;
+	top: 1px;
+}
+
+.removeTrackButton {
+	-moz-box-shadow: inset 0px 1px 0px 0px #fff;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #fff;
+	box-shadow: inset 0px 1px 0px 0px #fff;
+	background-color: #ededed;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border: 1px solid #bbb;
+	text-align: center;
+	margin-left: 1em;
+	width: 80px;
+	height: 28px;
+	cursor: pointer;
+}
+
+.removeTrackButton[disabled] {
+	-moz-box-shadow: inset 0px 1px 0px 0px #ececec;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #ececec;
+	box-shadow: inset 0px 1px 0px 0px #ececec;
+	background-color: #dfdfdf;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	color: #ccc;
+	text-align: center;
+	margin-left: 1em;
+	width: 80px;
+	height: 28px;
+	text-shadow: 0px 1px 0px #eee;
+	cursor: default;
+}
+.removeTrackButton.active:hover {
+	/*-moz-box-shadow: inset 0px 1px 0px 0px #fff;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #fff;
+	box-shadow: inset 0px 1px 0px 0px #fff;*/
+	border: 1px solid #9B5050;
+	background: #EB9999;
+	color: #777;
+	text-shadow: 0px 1px 0px #E0B2B2;
+}
+.controlButton {
+	width: 70px;
+	font-family: BTN !important;
+	font-size: 30px !important;
+	color: #777 !important;
+}
+.controlButton:hover {
+	-moz-box-shadow: inset 0px 1px 0px 0px #f0f8ff;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #f0f8ff;
+	box-shadow: inset 0px 1px 0px 0px #f0f8ff;
+	border: 1px solid #8D9DB2 !important;
+	/*border: 1px solid #7B7BBC !important;
+	background: #B0C4DE;*/
+	background: #C8D6E8;
+}
+.test {
+    /*height: 30px;
+    width: 100px;
+    letter-spacing: 1px;
+    -webkit-box-shadow: 0px 2px 3px #b2b1b1;
+    -moz-box-shadow: 0px 2px 3px #b2b1b1;
+    box-shadow: 0px 2px 3px #b2b1b1;
+    text-align: center;
+    color: #666;
+    background-color: #555;
+    border-bottom: 6px solid #b2b1b1;*/
+    padding: 0 27px;
+	line-height: 39px;
+	letter-spacing: 1px;
+	font-weight: bold;
+    border: 1px solid #5983c2;
+    border-bottom: 2px solid #5983c2;
+    }
+
+/*.test:hover {
+    color: #777;
+    border-bottom: 3px solid #b2b1b1;
+    background: #fff;
+}
+.active {
+	-moz-box-shadow: inset 0px 1px 0px 0px #ddd;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #ddd;
+	box-shadow: inset 0px 1px 0px 0px #ddd;
+}
+.stop {
+        width:120px;
+        height:40px;
+        position:relative;
+        color:#555;
+        font-size:16px;
+        font-family:'Open Sans', sans-serif;
+        letter-spacing: 1px;
+        border-radius:4px;
+        margin:20px; 
+}
+.stop::before {
+        width:120px;
+        height:44px;
+        border-radius: 5px;
+        position:absolute;
+        top:-2px;
+        left:-2px;
+        box-shadow:0px 4px 0px 0px rgba(0, 0, 0, 0.15);
+        content:'';
+        z-index:-1;
+}
+*/
