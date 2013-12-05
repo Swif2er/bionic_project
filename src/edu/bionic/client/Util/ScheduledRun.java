@@ -20,7 +20,8 @@ public class ScheduledRun {
 	public static List<SoundPlayer> players = new ArrayList<SoundPlayer>();
 
 	// private String pathToSoundFile;
-
+	private int panelId;
+	
 	public ScheduledRun() {
 		timer = new Timer() {
 			public void run() {
@@ -77,4 +78,11 @@ public class ScheduledRun {
 	// pathToSoundFile = path;
 	// }
 
+	public void setPanelId(int id) {
+		panelId = id;
+	}
+	
+	public int getPanelId() {
+		return panelId;
+	}
 }
