@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.Label;
 
 import edu.bionic.client.Audio.SoundPlayer;
+import edu.bionic.client.Audio.VoicesPlayer;
 import edu.bionic.client.Util.ScheduledRun;
 
 public class UserInterface extends Composite {
@@ -31,11 +32,16 @@ public class UserInterface extends Composite {
 	private VerticalPanel vPanel = new VerticalPanel();
 	private HorizontalPanel menuPanel = new HorizontalPanel();
 	private static List<HorizontalPanel> tracks = new ArrayList<HorizontalPanel>();
-	//private static List<String> data = new ArrayList<String>();
+	private static List<String> fileNames = new ArrayList<String>();	
+	//public static List<VoicesPlayer> players = new ArrayList<VoicesPlayer>();
+	private static List<SoundPlayer> players = new ArrayList<SoundPlayer>();
 	private int countTracks = 0;
-
 	private Uploader uploadBtn;
-
+	private int upId;
+	private ScheduledRun schedRun;
+	private Boolean playState = false;
+	private Button playBtn;
+	
 	public UserInterface() {
 		initWidget(vPanel);
 		// vPanel.setSpacing(20);
@@ -65,22 +71,27 @@ public class UserInterface extends Composite {
 		addTrackBtn.addClickHandler(new addTrackClickHandler());
 		menuPanel.add(addTrackBtn);
 
-		HorizontalPanel splitter = new HorizontalPanel();
-		splitter.setWidth("179px");
-		menuPanel.add(splitter);
+//		HorizontalPanel splitter = new HorizontalPanel();
+//		splitter.setWidth("179px");
+//		menuPanel.add(splitter);
 
-		Button playBtn = new Button("A");
-		playBtn.setTitle("Start playing");
-		playBtn.addStyleName("button");
+		playBtn = new Button();
+		playBtn.setTitle("Play");
+		//playBtn.addStyleName("button");
 		playBtn.addStyleName("controlButton");
+		playBtn.addStyleName("controlButton-hover");
+		playBtn.addStyleName("playButton");
+		playBtn.addStyleName("playButton-up");
 		playBtn.addClickHandler(new playClickHandler());
 		// playBtn.addKeyDownHandler(new spaceKeyDownHandler());
 		menuPanel.add(playBtn);
 
-		Button stopBtn = new Button("F");
-		stopBtn.setTitle("Stop playing");
+		Button stopBtn = new Button();
+		stopBtn.setTitle("Stop");
 		stopBtn.addStyleName("button");
 		stopBtn.addStyleName("controlButton");
+		stopBtn.addStyleName("controlButton-hover");
+		stopBtn.addStyleName("stopButton");
 		stopBtn.addClickHandler(new stopClickHandler());
 		menuPanel.add(stopBtn);
 
@@ -104,9 +115,9 @@ public class UserInterface extends Composite {
 
 		// create and add sample Toggle button
 		for (int i = 0; i < 16; i++) {
-			ToggleButton toggle = new ToggleButton(new Image("/Images/upImage.gif"), new Image("/Images/downImage.gif")); 
+			ToggleButton toggle = new ToggleButton(new Image("/Images/toggle_up.gif"), new Image("/Images/toggle_down_dark.gif")); 
 			if (i % 4 == 0) {
-				toggle.addStyleName("toggle"); 
+				toggle.addStyleName("break"); 
 			}
 				hPanel.add(toggle);
 		}
@@ -145,6 +156,11 @@ public class UserInterface extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 			uploadBtn = (Uploader) event.getSource();
+			for (int i=0; i<tracks.size(); i++) {
+				if (uploadBtn == tracks.get(i).getWidget(0)) {
+					upId = i;
+				}
+			}
 			System.out.println("uploadClickHandler");
 //			for (HorizontalPanel panel : tracks) {
 //				if (panel.getWidget(0) == uploadBtn) {
@@ -163,6 +179,11 @@ public class UserInterface extends Composite {
 //					Uploader uploadBtn = (Uploader) panel.getWidget(0);
 					uploadBtn.setButtonText(fileName.replaceAll("\\.\\w+", ""));
 					uploadBtn.setTitle("change sample");
+					//addFileName(upId, fileName);
+					
+					//players.add(upId, new VoicesPlayer(fileName));
+					getPlayers().add(upId, new SoundPlayer(fileName));
+					
 					// Window.alert(uploadSuccessEvent.getFile().getName());
 //					for (int i = 0; i < tracks.size(); i++) {
 //						if (uploadBtn.getParent() == tracks.get(i)) {
@@ -178,7 +199,7 @@ public class UserInterface extends Composite {
 	private class fileDialogCompleteHandler implements FileDialogCompleteHandler {
 		public boolean onFileDialogComplete(FileDialogCompleteEvent dialogCompleteEvent) {
 			if (dialogCompleteEvent.getTotalFilesInQueue() > 0) {
-				uploadBtn.setButtonText("<span class=\"buttonText\">uploading...</span>");
+				uploadBtn.setButtonText("uploading...");
 				uploadBtn.startUpload();
 			}
 			return true;
@@ -197,35 +218,45 @@ public class UserInterface extends Composite {
 	}
 
 	private class playClickHandler implements ClickHandler {
-
+		
 		@Override
 		public void onClick(ClickEvent event) {
-			new ScheduledRun();
-
+			
+			if (playState == false) {
+				playState = true;
+				playBtn.removeStyleName("controlButton-hover");
+				playBtn.removeStyleName("playButton-up");
+				playBtn.addStyleName("playButton-down");
+				schedRun = new ScheduledRun();
+			}
+			
+			//-------------------
 			// for Pause Event
 			//
 		}
 	}
 
 	// private class spaceKeyDownHandler implements KeyDownHandler {
-	//
 	// @Override
 	// public void onKeyDown(KeyDownEvent event) {
 	// if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
 	// // TODO Auto-generated method stub
-	//
 	// }
-	//
 	// }
-	//
 	// }
 
 	private class stopClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			ScheduledRun.setStop(true);
-			// ScheduledRun.togBtnIndex = 1;
+			if (playState == true) {
+				playState = false;
+				playBtn.removeStyleName("playButton-down");
+				playBtn.addStyleName("playButton-up");
+				playBtn.addStyleName("controlButton-hover");
+				schedRun.setStop(true);
+			}
+			
 		}
 
 	}
@@ -246,6 +277,7 @@ public class UserInterface extends Composite {
 					// System.out.println("id: " + i);
 					removeTrack(i);
 					// TODO: remove player from 'players' list;
+					removePlayer(i);
 					lastRemoveBtnController();
 					break;
 				}
@@ -259,6 +291,13 @@ public class UserInterface extends Composite {
 		System.out.println("tracks, before removing: " + tracks.size());
 		tracks.remove(id);
 		System.out.println("tracks, after removing: " + tracks.size());
+	}
+	
+	private void removePlayer(int id) {
+		System.out.println("removing player " + id);
+		System.out.println("players, before removing: " + tracks.size());
+		getPlayers().remove(id);
+		System.out.println("players, after removing: " + tracks.size());
 	}
 
 	public static List<HorizontalPanel> getTracks() {
@@ -281,12 +320,23 @@ public class UserInterface extends Composite {
 		remove.addStyleName("button");
 	}
 
-//	public int getTrackIdByUploadButton(Uploader uploader) {
-//		// TODO
-//		return 0;
-//	}
-//
-//	public void getUploaderByEvent() {
-//
-//	}
+	public static List<String> getFileNames() {
+		return fileNames;
+	}
+
+	public static void setFileNames(List<String> fileNames) {
+		UserInterface.fileNames = fileNames;
+	}
+	
+	public void addFileName(int index, String fName) {
+		fileNames.add(index, fName);
+	}
+
+	public static List<SoundPlayer> getPlayers() {
+		return players;
+	}
+
+	public static void setPlayers(List<SoundPlayer> players) {
+		UserInterface.players = players;
+	}
 }

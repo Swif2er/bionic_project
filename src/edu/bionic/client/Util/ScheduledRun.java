@@ -9,53 +9,49 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.ToggleButton;
 
 import edu.bionic.client.Audio.SoundPlayer;
+import edu.bionic.client.Audio.VoicesPlayer;
 import edu.bionic.client.GUI.UserInterface;
 
 public class ScheduledRun {
 
-	private Timer timer;
-	private int miliseconds = 250;
-	static int togBtnIndex = 1;
-	private static boolean stop = false;
-	public static List<SoundPlayer> players = new ArrayList<SoundPlayer>();
+	//private Timer timer;
+	private static int miliseconds = 250;
+	//static int togBtnIndex = 1;
+	//private static boolean stop = false;
+	private Delay delay;
 
 	// private String pathToSoundFile;
-	private int panelId;
+	//private int trackId;
 	
+//	public ScheduledRun(int id) {
+//		trackId = id;
 	public ScheduledRun() {
-		timer = new Timer() {
-			public void run() {
-				// if(getStart == true) {
-				if (togBtnIndex == 17) {
-					togBtnIndex = 1;
-				}
-				if (((ToggleButton) UserInterface.getTracks().get(panelId).getWidget(togBtnIndex))
-						.isDown() == true) {
-					// System.out.println("index: "
-					// + togBtnIndex
-					// + " state"
-					// + ((ToggleButton) UserInterface.getRows().get(0)
-					// .getWidget(togBtnIndex)).isDown());
-					//
-					// new SoundPlayer(pathToSoundFile).play();
-					//
-					// for (SoundPlayer player : players) {
-					// if (player.getAudioName().equals(
-					// ((Uploader)
-					// UserInterface.getTracks().get(i).getWidget(0))
-					// .getTitle())) {
-					// player.play();
-					// }
-					// }
-
-				}
-				if (getStop() == true) {
-					timer.cancel(); // Terminate the timer thread
-				}
-				togBtnIndex++;
-			}
-		};
-		timer.scheduleRepeating(miliseconds); // in miliseconds
+//		Timer timer = new Timer() {
+//			public void run() {
+//				// if(getStart == true) {
+//				if (togBtnIndex == 17) {
+//					togBtnIndex = 1;
+//				}
+//				for (int x = 0; x < UserInterface.getTracks().size(); x++) {
+////				if (((ToggleButton) UserInterface.getTracks().get(trackId).getWidget(togBtnIndex))
+////						.isDown() == true) {
+////					new VoicesPlayer(UserInterface.getFileNames().gettrackIdx)).play();
+////				}
+//					if (((ToggleButton) UserInterface.getTracks().get(x).getWidget(togBtnIndex)).isDown() == true) {	
+//						UserInterface.players.get(x).play();
+//					}
+//				}
+//				if (getStop() == true) {
+//					this.cancel(); // Terminate the timer thread
+//				}
+//				togBtnIndex++;
+//			}
+//		};
+//		timer.scheduleRepeating(miliseconds); // in miliseconds
+		delay = new Delay();
+		delay.resetTogBtnIndex();
+		delay.repeating(miliseconds);
+		
 	}
 
 	public void setDelay(int msec) {
@@ -66,23 +62,23 @@ public class ScheduledRun {
 		return miliseconds;
 	}
 
-	public static boolean getStop() {
-		return stop;
+	public boolean getStop() {
+		return delay.getStop();
 	}
 
-	public static void setStop(boolean stop) {
-		ScheduledRun.stop = stop;
+	public void setStop(boolean stop) {
+		delay.setStop(stop);
 	}
 
 	// public void setPathToSoundFile(String path) {
 	// pathToSoundFile = path;
 	// }
 
-	public void setPanelId(int id) {
-		panelId = id;
-	}
-	
-	public int getPanelId() {
-		return panelId;
-	}
+//	public void setPanelId(int id) {
+//		panelId = id;
+//	}
+//	
+//	public int getPanelId() {
+//		return panelId;
+//	}
 }

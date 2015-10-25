@@ -7,12 +7,12 @@ public class SoundPlayer {
 	private Audio audio;
 	private String audioName;
 	
-	public SoundPlayer(String sFile) {
+	public SoundPlayer(String aName) {
 	//public SoundPlayer() {
-		audioName = sFile;
+		audioName = aName;
 		audio = Audio.createIfSupported();
 		//audio.setSrc("SoundClips/808HH.wav");
-		audio.setSrc(sFile);
+		audio.setSrc("UserSoundClips/" + aName);
 	}
 
 //	public String getAudioName(){
